@@ -4,11 +4,12 @@ import MOCK_DATA from "../../static/MOCK_DATA";
 import { COLUMNS } from "./COLUMNS";
 import { Checkbox } from "./Checkbox";
 
-const Table = ({ tabs, setTabs, activeTab, currentTab }) => {
+const Table = ({ tabs, setTabs, activeTab, currentTab, onFirstTable, setTable, isFirstTable=true, forceUpdate }) => {
   // memoizing data, required
   const [data, setData] = useState(MOCK_DATA);
   const columns = useMemo(() => COLUMNS, []);
-
+  
+    // table props
   const {
     getTableProps,
     getTableBodyProps,
@@ -37,17 +38,26 @@ const Table = ({ tabs, setTabs, activeTab, currentTab }) => {
     }
   );
 
+  const backButton = (e) => {
+    e.preventDefault();
+    setTable(true);
+  }
+
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log("submit on Tab ", currentTab, " is: ", selectedFlatRows);
+    if (onFirstTable) {
+        setTable(false);
+        forceUpdate()
+    }
   };
 
 
   return (
-    <div className="Table">
-    <button onClick={onSubmitHandler}>SUBMIT</button>
-
+    <div className="Table" style= {(currentTab === activeTab && onFirstTable === isFirstTable) ? {} : {display: "none"}}>
+        <button onClick={backButton}> back </button>
+    <button onClick={onSubmitHandler}>{isFirstTable ? "next" : "submit"}</button>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -73,7 +83,7 @@ const Table = ({ tabs, setTabs, activeTab, currentTab }) => {
           })}
         </tbody>
       </table>
-      <pre>
+      <pre style={{display: "none"}}>
         <code>
           {JSON.stringify(
             {

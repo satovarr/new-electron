@@ -8,16 +8,21 @@ import Nav from "./components/Nav";
 function App() {
   const [tabs, setTabs] = useState(DEFAULT_TABS);
   const [activeTab, setActiveTab] = useState(0);
+
   // force update function
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), []);
+
+  //state to check  if the table is the first or second
+  const [onFirstTable, setTable] = useState(true);
+
 
 
   const renderTabs = () => {
       return(
           tabs.map((tab, idx)=>(
-            <div className="Tab-container" key={idx + 10}> 
-                <Tab key={idx + 10} tabs={tabs} setTabs={setTabs} activeTab={activeTab} currentTab = {idx}/> 
+            <div className="Tab-container" key={idx}> 
+                <Tab key={idx} tabs={tabs} setTabs={setTabs} activeTab={activeTab} currentTab = {idx} onFirstTable={onFirstTable} setTable={setTable} forceUpdate={forceUpdate}/> 
             </div>
           ))
       )

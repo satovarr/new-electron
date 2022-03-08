@@ -1,4 +1,4 @@
-const database = {
+const database = () => {
     return(
        static_data 
     )

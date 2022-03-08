@@ -1,19 +1,16 @@
 import React from "react";
 import Table from "../Table";
 
-const Tab = ({ tabs, setTabs, activeTab, currentTab, isFirstTable=true}) => {
+const Tab = ({ tabs, setTabs, activeTab, currentTab, onFirstTable, setTable, forceUpdate}) => {
 
     
 
     return(
         <div className="Tab">
-            <h1>Tab { tabs[currentTab].index }</h1>
-            {tabs[currentTab].selected_ids.map((id) => (
-              <div>{id} is {currentTab}</div>
-            ))}
-            <Table tabs={tabs} setTabs={setTabs} tabactiveTab= {activeTab} currentTab={currentTab}/>
             
-            <Table tabs={tabs} setTabs={setTabs} tabactiveTab= {activeTab} currentTab={currentTab} isFirstTable={false} />
+            <Table tabs={tabs} setTabs={setTabs} activeTab= {activeTab} currentTab={currentTab} onFirstTable={onFirstTable} setTable={setTable} forceUpdate={forceUpdate}/>
+            
+            <Table tabs={tabs} setTabs={setTabs} activeTab= {activeTab} currentTab={currentTab} onFirstTable={onFirstTable} setTable={setTable} forceUpdate={forceUpdate} isFirstTable={false}/>
 
             
         </div>
