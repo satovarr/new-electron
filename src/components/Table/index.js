@@ -3,13 +3,32 @@ import { useTable, useRowSelect } from "react-table";
 import MOCK_DATA from "../../static/MOCK_DATA";
 import { COLUMNS } from "./COLUMNS";
 import { Checkbox } from "./Checkbox";
+import { ColumnFilter } from "./ColumnFilter";
+import './index.css'
 
-const Table = ({ tabs, setTabs, activeTab, currentTab, onFirstTable, setTable, isFirstTable=true, forceUpdate }) => {
+
+const Table = ({
+  tabs,
+  setTabs,
+  activeTab,
+  currentTab,
+  onFirstTable,
+  setTable,
+  isFirstTable = true,
+  forceUpdate,
+}) => {
   // memoizing data, required
   const [data, setData] = useState(MOCK_DATA);
   const columns = useMemo(() => COLUMNS, []);
-  
-    // table props
+
+  const defaultColumn = useMemo(
+    () => ({
+      Filter: ColumnFilter,
+    }),
+    []
+  );
+
+  // table props
   const {
     getTableProps,
     getTableBodyProps,
@@ -22,8 +41,9 @@ const Table = ({ tabs, setTabs, activeTab, currentTab, onFirstTable, setTable, i
     {
       columns,
       data,
+      defaultColumn,
     },
-    useRowSelect, 
+    useRowSelect,
     (hooks) => {
       hooks.visibleColumns.push((columns) => [
         {
@@ -41,60 +61,70 @@ const Table = ({ tabs, setTabs, activeTab, currentTab, onFirstTable, setTable, i
   const backButton = (e) => {
     e.preventDefault();
     setTable(true);
-  }
-
-
+  };
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log("submit on Tab ", currentTab, " is: ", selectedFlatRows);
     if (onFirstTable) {
-        setTable(false);
-        forceUpdate()
+      setTable(false);
+      forceUpdate();
     }
   };
 
-
   return (
-    <div className="Table" style= {(currentTab === activeTab && onFirstTable === isFirstTable) ? {} : {display: "none"}}>
-        <button onClick={backButton}> back </button>
-    <button onClick={onSubmitHandler}>{isFirstTable ? "next" : "submit"}</button>
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
+    <>
+      <div
+        className="Table"
+        style={
+          currentTab === activeTab && onFirstTable === isFirstTable
+            ? {}
+            : { display: "none" }
+        }
+      >
+        <table  {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <pre style={{display: "none"}}>
-        <code>
-          {JSON.stringify(
-            {
-              selectedFlatRows: selectedFlatRows.map((row) => row.original),
-            },
-            null,
-            2
-          )}
-        </code>
-      </pre>
-    </div>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <button className="back-btn" onClick={backButton}> back </button>
+        <button className="submit-btn" onClick={onSubmitHandler}>
+          {isFirstTable ? "next" : "submit"}
+        </button>
+        <pre style={{ display: "none" }}>
+          <code>
+            {JSON.stringify(
+              {
+                selectedFlatRows: selectedFlatRows.map((row) => row.original),
+              },
+              null,
+              2
+            )}
+          </code>
+        </pre>
+      </div>
+    </>
   );
 };
 

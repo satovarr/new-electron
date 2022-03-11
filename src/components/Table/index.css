@@ -1,0 +1,54 @@
+.Table table{
+    grid-column: 2 / 10;
+    grid-row: 2 / 7;
+}
+
+.Table .back-btn{
+    grid-column: 11;
+    grid-row: 3;
+}
+
+.Table .submit-btn{
+    grid-column: 11;
+    grid-row: 5;
+}
+
+table {
+    font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table td,
+  table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  table tr:hover {
+    background-color: #ddd;
+  }
+  
+  table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4caf50;
+    color: white;
+  }
+
+  table input{
+      margin: auto;
+      text-align: center;
+  }
+
+  .Table{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(100px, auto);    
+}
+
