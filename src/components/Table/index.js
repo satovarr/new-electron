@@ -58,13 +58,25 @@ const Table = ({
     }
   );
 
+  const selectedDataPusher = () => {
+      if (isFirstTable) {
+          tabs[activeTab].selected_ids = selectedFlatRows.map(d => d.original.id)
+      } else {
+        tabs[activeTab].selected_ids2 = selectedFlatRows.map(d => d.original.id)
+
+      }
+  }
+
+
   const backButton = (e) => {
     e.preventDefault();
     setTable(true);
   };
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("submit on Tab ", currentTab, " is: ", selectedFlatRows);
+    console.log("submit on Tab ", currentTab, " is: ", selectedFlatRows.map(
+        d => d.original.id));
+        selectedDataPusher();
     if (onFirstTable) {
       setTable(false);
       forceUpdate();

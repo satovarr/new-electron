@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import DEFAULT_TABS from "./static/DEFAULT_TABS";
 import Table from "./components/Table";
@@ -17,23 +17,51 @@ function App() {
   //state to check  if the table is the first or second
   const [onFirstTable, setTable] = useState(true);
 
-
-
   const renderTabs = () => {
-      return(
-          tabs.map((tab, idx)=>(
-            <div className="Tab-container" key={idx}> 
-                <Tab className="Table" key={idx} tabs={tabs} setTabs={setTabs} activeTab={activeTab} currentTab = {idx} onFirstTable={onFirstTable} setTable={setTable} forceUpdate={forceUpdate}/> 
-            </div>
-          ))
-      )
+    return tabs.map((tab, idx) => (
+      <div className="Tab-container" key={idx}>
+        <Tab
+          className="Table"
+          key={idx}
+          tabs={tabs}
+          setTabs={setTabs}
+          activeTab={activeTab}
+          currentTab={idx}
+          onFirstTable={onFirstTable}
+          setTable={setTable}
+          forceUpdate={forceUpdate}
+        />
+      </div>
+    ));
   };
 
   return (
     <div className="app-container">
-        <Nav tabs= {tabs} activeTab= {activeTab} setActiveTab = {setActiveTab} forceUpdate={forceUpdate} />
-      {renderTabs()}
+      <Router>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/second">Second</Link>
+        </nav>
+        <Switch>
+          <Route exact path="/">
+            <Nav
+              tabs={tabs}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              forceUpdate={forceUpdate}
+            />
+            {renderTabs()}
+          </Route>
+          <Route path="/second">{onFirstTable.toString()}
+            <h1>
+                Arrays
+            </h1>
 
+            {tabs.map(tab => {return <div>{ tab.index } { tab.selected_ids } y { tab.selected_ids2 } </div>})}
+
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
   /*return (

@@ -3,7 +3,7 @@ import React from "react";
 const Nav = ({ tabs, activeTab, setActiveTab, forceUpdate }) => {
 
   const addTab = () => {
-    tabs.push({ index: `${tabs.length + 1}`, selected_ids: [6, 6, 6] });
+    tabs.push({ index: `${tabs.length + 1}`, selected_ids: [],  selected_ids2: [] });
     forceUpdate();
   };
 
