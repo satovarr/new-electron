@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import DEFAULT_TABS from "./static/DEFAULT_TABS";
-import Table from "./components/Table";
+import SelectedWindow from "./components/SelectedWindow";
 import Tab from "./components/Tab";
 import Nav from "./components/Nav";
 import "./index.css";
@@ -17,6 +17,7 @@ function App() {
   //state to check  if the table is the first or second
   const [onFirstTable, setTable] = useState(true);
 
+  //function that renders
   const renderTabs = () => {
     return tabs.map((tab, idx) => (
       <div className="Tab-container" key={idx}>
@@ -52,32 +53,14 @@ function App() {
             />
             {renderTabs()}
           </Route>
-          <Route path="/second">{onFirstTable.toString()}
-            <h1>
-                Arrays
-            </h1>
+          <Route path="/second">
 
-            {tabs.map(tab => {return <div>{ tab.index } { tab.selected_ids } y { tab.selected_ids2 } </div>})}
+            <SelectedWindow onFirstTable={ onFirstTable } tabs={ tabs } />
 
           </Route>
         </Switch>
       </Router>
     </div>
-  );
-  /*return (
-    <div className="format">
-        <h1>App</h1>
-        {tabs.map((tab, idx) => (
-          <div key={idx}>
-            id: {tab.index}. selected:
-            {tab.selected_ids.map((id) => (
-              <div>{id}</div>
-            ))}
-          </div>
-        ))}
-
-      </div>
-  );*/
-}
+  );}
 
 export default App;
