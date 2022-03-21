@@ -1,7 +1,5 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import DEFAULT_TABS from "./static/DEFAULT_TABS";
-import Table from "./components/Table";
 import Tab from "./components/Tab";
 import Nav from "./components/Nav";
 import "./index.css";
@@ -23,7 +21,7 @@ function App() {
       return(
           tabs.map((tab, idx)=>(
             <div className="Tab-container" key={idx}> 
-                <Tab className="Table" key={idx} tabs={tabs} setTabs={setTabs} activeTab={activeTab} currentTab = {idx} onFirstTable={onFirstTable} setTable={setTable} forceUpdate={forceUpdate}/> 
+                <Tab className="Table" key={idx} activeTab={activeTab} currentTab = {idx} onFirstTable={onFirstTable} setTable={setTable} forceUpdate={forceUpdate}/> 
             </div>
           ))
       )

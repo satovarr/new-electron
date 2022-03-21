@@ -8,13 +8,12 @@ import './index.css'
 
 
 const Table = ({
-  tabs,
-  setTabs,
   activeTab,
   currentTab,
   onFirstTable,
   setTable,
   isFirstTable = true,
+  idsResult,
   forceUpdate,
 }) => {
   // memoizing data, required
@@ -97,7 +96,11 @@ const Table = ({
             {rows.map((row, i) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr {...row.getRowProps()} key={i} style={
+                  idsResult.includes(row.id)
+                    ? {}
+                    : { display: "none" }
+                }>
                   {row.cells.map((cell) => {
                     return (
                       <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
