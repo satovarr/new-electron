@@ -1,0 +1,17 @@
+.selected_window{
+    display: flex;
+    height: 90vh;
+    justify-content: space-around;
+}
+
+.selected_tables{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.export{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
