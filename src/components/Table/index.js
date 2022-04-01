@@ -8,13 +8,15 @@ import './index.css'
 
 
 const Table = ({
+  tabs,
+  setTabs,
   activeTab,
   currentTab,
   onFirstTable,
   setTable,
   isFirstTable = true,
-  idsResult,
   forceUpdate,
+  idsResult,  
 }) => {
   // memoizing data, required
   const [data, setData] = useState(MOCK_DATA);

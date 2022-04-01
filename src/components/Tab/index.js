@@ -3,7 +3,15 @@ import Table from "../Table";
 import MOCK_JSON from "../../static/MOCK_JSON.json";
 
 
-const Tab = ({ activeTab, currentTab, onFirstTable, setTable, forceUpdate }) => {
+const Tab = ({
+key,
+tabs,
+setTabs,
+activeTab,
+currentTab,
+onFirstTable,
+setTable,
+forceUpdate}) => {
 
     const [search, setSearch] = useState("");
     const [idsResult, setIdResult] = useState([]);
@@ -47,9 +55,9 @@ const Tab = ({ activeTab, currentTab, onFirstTable, setTable, forceUpdate }) => 
 
             {//First and second table
             }
-            <Table activeTab={activeTab} currentTab={currentTab} onFirstTable={onFirstTable} setTable={setTable} idsResult={idsResult} forceUpdate={forceUpdate} />
+            <Table activeTab={activeTab} currentTab={currentTab} onFirstTable={onFirstTable} setTable={setTable} idsResult={idsResult} forceUpdate={forceUpdate} tabs={tabs} />
 
-            <Table activeTab={activeTab} currentTab={currentTab} onFirstTable={onFirstTable} setTable={setTable} idsResult={idsResult} forceUpdate={forceUpdate}  isFirstTable={false} />
+            <Table activeTab={activeTab} currentTab={currentTab} onFirstTable={onFirstTable} setTable={setTable} idsResult={idsResult} forceUpdate={forceUpdate}  tabs={tabs} isFirstTable={false} />
 
 
         </div>
